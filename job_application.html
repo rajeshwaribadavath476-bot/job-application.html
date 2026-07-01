@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Job Application Form</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: Arial, sans-serif;
+}
+
+body{
+    background: linear-gradient(to right, #4facfe, #00f2fe);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+}
+
+.container{
+    width:400px;
+    background:white;
+    padding:30px;
+    border-radius:10px;
+    box-shadow:0px 4px 15px rgba(0,0,0,0.2);
+}
+
+h2{
+    text-align:center;
+    color:#333;
+    margin-bottom:20px;
+}
+
+.input-group{
+    margin-bottom:15px;
+}
+
+label{
+    display:block;
+    margin-bottom:5px;
+    font-weight:bold;
+}
+
+input,
+textarea{
+    width:100%;
+    padding:10px;
+    border:1px solid #ccc;
+    border-radius:5px;
+    font-size:14px;
+}
+
+textarea{
+    resize:none;
+}
+
+button{
+    width:100%;
+    padding:12px;
+    background:#007BFF;
+    color:white;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+    font-size:16px;
+}
+
+button:hover{
+    background:#0056b3;
+}
+
+.error{
+    color:red;
+    font-size:13px;
+}
+
+.success{
+    color:green;
+    text-align:center;
+    margin-top:10px;
+    font-weight:bold;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h2>Job Application Form</h2>
+
+    <form id="myForm">
+
+        <div class="input-group">
+            <label>Name</label>
+            <input type="text" id="name">
+            <div class="error" id="nameError"></div>
+        </div>
+
+        <div class="input-group">
+            <label>Email</label>
+            <input type="text" id="email">
+            <div class="error" id="emailError"></div>
+        </div>
+
+        <div class="input-group">
+            <label>Phone</label>
+            <input type="text" id="phone">
+            <div class="error" id="phoneError"></div>
+        </div>
+
+        <div class="input-group">
+            <label>Message</label>
+            <textarea id="message" rows="4"></textarea>
+            <div class="error" id="messageError"></div>
+        </div>
+
+        <button type="submit">Submit</button>
+
+        <div class="success" id="successMsg"></div>
+
+    </form>
+</div>
+
+<script>
+document.getElementById("myForm").addEventListener("submit", function(event){
+
+    event.preventDefault();
+
+    document.getElementById("nameError").innerHTML = "";
+    document.getElementById("emailError").innerHTML = "";
+    document.getElementById("phoneError").innerHTML = "";
+    document.getElementById("messageError").innerHTML = "";
+    document.getElementById("successMsg").innerHTML = "";
+
+    let name = document.getElementById("name").value.trim();
+    let email = document.getElementById("email").value.trim();
+    let phone = document.getElementById("phone").value.trim();
+    let message = document.getElementById("message").value.trim();
+
+    let valid = true;
+
+    if(name === ""){
+        document.getElementById("nameError").innerHTML =
+        "Name is required";
+        valid = false;
+    }
+
+    let emailPattern =
+    /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+
+    if(email === ""){
+        document.getElementById("emailError").innerHTML =
+        "Email is required";
+        valid = false;
+    }
+    else if(!email.match(emailPattern)){
+        document.getElementById("emailError").innerHTML =
+        "Enter a valid email";
+        valid = false;
+    }
+
+    let phonePattern = /^[0-9]{10}$/;
+
+    if(phone === ""){
+        document.getElementById("phoneError").innerHTML =
+        "Phone number is required";
+        valid = false;
+    }
+    else if(!phone.match(phonePattern)){
+        document.getElementById("phoneError").innerHTML =
+        "Phone number must be 10 digits";
+        valid = false;
+    }
+
+    if(message === ""){
+        document.getElementById("messageError").innerHTML =
+        "Message cannot be empty";
+        valid = false;
+    }
+
+    if(valid){
+        document.getElementById("successMsg").innerHTML =
+        "Form submitted successfully!";
+        document.getElementById("myForm").reset();
+    }
+
+});
+</script>
+
+</body>
+</html>
